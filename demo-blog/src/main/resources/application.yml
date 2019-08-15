@@ -1,0 +1,21 @@
+spring:
+   mvc:
+      view:
+         prefix: WEB-INF/jsp/
+         suffix: .jsp
+         
+   datasource:
+      url: jdbc:mysql://127.0.0.1:3306/test
+      username: root
+      password: zatt
+      driver-class-name: com.mysql.jdbc.Driver
+      
+   mail:
+      host: smtp.qq.com
+      username: 306529917@qq.com
+      password: ejchtkhuulwqcbbh
+      default-encoding: UTF-8
+      
+mail:
+   fromMail:
+      assr: 306529917@qq.com
