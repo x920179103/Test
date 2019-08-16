@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<context id="testTables" targetRuntime="MyBatis3">
+	<context id="DB2Tables" targetRuntime="MyBatis3">
 		<commentGenerator>
-			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<!-- 是否去除自动生成的注释 -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<!-- Mysql数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/testblog" userId="root"
 			password="zatt">
 		</jdbcConnection>
-		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
+		<!-- Oracle数据库 <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
 			userId="yycg" password="yycg"> </jdbcConnection> -->
 
-		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL和NUMERIC类型解析为java.math.BigDecimal -->
+		<!-- 默认为false，把JDBC DECIMAL 和NUMERIC类型解析为Integer，为true时 把JDBC DECIMAL 和NUMERIC类型解析为java.math.BigDecimal -->
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<!-- targetProject:生成PO类的位置，重要！！ -->
-		<javaModelGenerator targetPackage="com.yc.blog.po"
-			targetProject=".\src">
+		<!-- targetProject：生成POJO类的位置 -->
+		<javaModelGenerator
+			targetPackage="com.yc.blog.pojo" targetProject=".\src\main\java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 			<!-- 从数据库返回的值被清理前后的空格 -->
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
-		<!-- targetProject:mapper映射文件生成的位置，重要！！ -->
+
+		<!-- targetProject：mapper映射文件生成的位置 -->
 		<sqlMapGenerator targetPackage="com.yc.blog.mapper"
-			targetProject=".\src">
+			targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
-		<!-- targetPackage：mapper接口生成的位置，重要！！ -->
+
+		<!-- targetProject：mapper接口生成的的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.yc.blog.mapper" targetProject=".\src">
+			targetPackage="com.yc.blog.mapper" targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
-		<!-- 指定数据库表，要生成哪些表，就写哪些表，要和数据库中对应，不能写错！ -->
+
+		<!-- 指定数据表 -->
 		<table tableName="user"></table>
 		<table tableName="article"></table>
 		<table tableName="category"></table>
 		<table tableName="comment"></table>
 		<table tableName="flink"></table>
+
+		<!-- 有些表的字段需要指定java类型 <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" 
+			> <property name="useActualColumnNames" value="true"/> <generatedKey column="ID" 
+			sqlStatement="DB2" identity="true" /> <columnOverride column="DATE_FIELD" 
+			property="startDate" /> <ignoreColumn column="FRED" /> <columnOverride column="LONG_VARCHAR_FIELD" 
+			jdbcType="VARCHAR" /> </table> -->
+
 	</context>
 </generatorConfiguration>
+
