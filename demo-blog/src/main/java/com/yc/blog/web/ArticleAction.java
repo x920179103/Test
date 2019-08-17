@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yc.blog.biz.ArticleBiz;
 import com.yc.blog.biz.CategoryBiz;
+import com.yc.blog.pojo.Article;
 import com.yc.blog.pojo.Category;
 
 @Controller
@@ -20,10 +21,10 @@ public class ArticleAction {
 	private ArticleBiz abiz;
 	@Resource
 	private CategoryBiz cbiz;
-	
+
 	@ModelAttribute("cList")
-	public List<Category>init(){
-		
+	public List<Category> init() {
+
 		return cbiz.queryAll();
 	}
 
@@ -39,6 +40,17 @@ public class ArticleAction {
 
 		model.addAttribute("aList", abiz.queryByCategory(id, page));
 		return "category";
+
+	}
+	
+	@GetMapping("article")
+	public String article(int id,  Model model) {
+    Article a = abiz.read(id);
+    List<Article> relaList=abiz.queryRela(a.getCategoryid());
+    model.addAttribute("relaList",relaList);
+    
+    model.addAttribute(a);
+		return "article";
 
 	}
 }
